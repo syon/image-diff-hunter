@@ -1,73 +1,98 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        dci
-      </h1>
-      <h2 class="subtitle">
-        My terrific Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div class="row">
+      <div class="col">
+        <shelf prefix="L" />
+      </div>
+      <div class="col">
+        <shelf prefix="R" />
+      </div>
+      <div class="col">
+        <div v-for="x of allEntries" :key="x.name">
+          <div style="height:100px;">
+            <button @click="doDiff(x.name)">doDiff</button>
+          </div>
+          <canvas :id="`D-${x.name}`" style="display:none;" />
+        </div>
+        <img :src="aaaaaaaa" class="dif-img" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import pixelmatch from 'pixelmatch'
+import { mapGetters } from 'vuex'
+import Shelf from '@/components/Shelf'
 
 export default {
   components: {
-    Logo
+    Shelf
+  },
+  data() {
+    return { aaaaaaaa: '' }
+  },
+  computed: {
+    ...mapGetters({
+      allEntries: 'shelf/allEntries'
+    })
+  },
+  methods: {
+    doDiff(filename) {
+      const base = document.getElementById(`L-${filename}`)
+      const width = base.width
+      const height = base.height
+      console.log({ width, height })
+      const img1 = this.getImageContext(`L-${filename}`).getImageData(
+        0,
+        0,
+        width,
+        height
+      )
+      const img2 = this.getImageContext(`R-${filename}`).getImageData(
+        0,
+        0,
+        width,
+        height
+      )
+      const diff = this.getImageContext(`D-${filename}`).createImageData(
+        width,
+        height
+      )
+      const difCanvas = document.getElementById(`D-${filename}`)
+      difCanvas.width = width
+      difCanvas.height = height
+
+      pixelmatch(img1.data, img2.data, diff.data, width, height, {
+        threshold: 0.1
+      })
+
+      this.getImageContext(`D-${filename}`).putImageData(
+        diff,
+        0,
+        0,
+        0,
+        0,
+        width,
+        height
+      )
+
+      const u = difCanvas.toDataURL('image/png')
+      this.aaaaaaaa = u
+    },
+    getImageContext(id) {
+      const canvas = document.getElementById(id)
+      return canvas.getContext('2d')
+    }
   }
 }
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+.row {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+.dif-img {
+  width: 200px;
 }
 </style>
