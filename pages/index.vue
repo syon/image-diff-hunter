@@ -23,7 +23,7 @@
 <script>
 import pixelmatch from 'pixelmatch'
 import { mapGetters } from 'vuex'
-import Shelf from '@/components/Shelf'
+import Shelf from '../components/Shelf'
 
 export default {
   components: {
