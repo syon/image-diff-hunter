@@ -1,20 +1,36 @@
+import Vue from 'vue'
+
 export const state = () => ({
-  leftEntries: [],
-  rightEntries: []
+  entrySet: {}
 })
 
 export const getters = {
   allEntries(state) {
-    return state.leftEntries
+    return Object.entries(state.entrySet).map(([k, v]) => {
+      return { name: k, ...v }
+    })
   }
 }
 
 export const mutations = {
   setLeft(state, leftEntries) {
-    state.leftEntries = leftEntries
+    for (const eL of leftEntries) {
+      const { name, dataURL } = eL
+      const e = state.entrySet[name]
+      Vue.set(state.entrySet, name, { ...e, 'dataURL-L': dataURL })
+    }
   },
   setRight(state, rightEntries) {
-    state.rightEntries = rightEntries
+    for (const eR of rightEntries) {
+      const { name, dataURL } = eR
+      const e = state.entrySet[name]
+      Vue.set(state.entrySet, name, { ...e, 'dataURL-R': dataURL })
+    }
+  },
+  setDiffOne(state, diffEntry) {
+    const { name, dataURL } = diffEntry
+    const e = state.entrySet[name]
+    Vue.set(state.entrySet, name, { ...e, 'dataURL-D': dataURL })
   }
 }
 
@@ -24,5 +40,8 @@ export const actions = {
   },
   loadRight({ commit }, rightEntries) {
     commit('setRight', rightEntries)
+  },
+  loadDiff({ commit }, diffEntry) {
+    commit('setDiffOne', diffEntry)
   }
 }

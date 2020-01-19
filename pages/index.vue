@@ -8,13 +8,13 @@
         <shelf prefix="R" />
       </div>
       <div class="col">
-        <div v-for="x of allEntries" :key="x.name">
-          <div style="height:100px;">
-            <button @click="doDiff(x.name)">doDiff</button>
-          </div>
-          <canvas :id="`D-${x.name}`" style="display:none;" />
+        <div style="height:100px;">
+          <button @click="exeAllDiff">exeAllDiff</button>
         </div>
-        <img :src="aaaaaaaa" class="dif-img" />
+        <div v-for="x of allEntries" :key="x.name">
+          <canvas :id="`D-${x.name}`" style="display:none;" />
+          <img :src="x['dataURL-D']" class="dif-img" />
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@ export default {
     Shelf
   },
   data() {
-    return { aaaaaaaa: '' }
+    return {}
   },
   computed: {
     ...mapGetters({
@@ -38,8 +38,16 @@ export default {
     })
   },
   methods: {
+    exeAllDiff() {
+      this.allEntries.forEach(({ name }) => {
+        const url = this.doDiff(name)
+        this.$store.dispatch('shelf/loadDiff', { name, dataURL: url })
+      })
+    },
     doDiff(filename) {
+      console.log('doDiff:', filename)
       const base = document.getElementById(`L-${filename}`)
+      if (!base) return null
       const width = base.width
       const height = base.height
       console.log({ width, height })
@@ -78,10 +86,13 @@ export default {
       )
 
       const u = difCanvas.toDataURL('image/png')
-      this.aaaaaaaa = u
+      return u
     },
     getImageContext(id) {
       const canvas = document.getElementById(id)
+      if (!canvas) {
+        console.warn('[UNEXPECTED] getImageContext is null.', id)
+      }
       return canvas.getContext('2d')
     }
   }
