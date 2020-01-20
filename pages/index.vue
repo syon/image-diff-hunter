@@ -3,15 +3,23 @@
     <div class="row">
       <div class="col">
         <shelf prefix="L" />
+        <template v-for="x of allEntries">
+          <screen-img :name="x.name" :key="x.name" prefix="L" class="scr-img" />
+        </template>
       </div>
       <div class="col">
         <shelf prefix="R" />
+        <template v-for="x of allEntries">
+          <screen-img :name="x.name" :key="x.name" prefix="R" class="scr-img" />
+        </template>
       </div>
       <div class="col">
         <div style="height:100px;">
           <button @click="exeAllDiff">exeAllDiff</button>
         </div>
         <div v-for="x of allEntries" :key="x.name">
+          <canvas :id="`L-${x.name}`" style="display:none;" />
+          <canvas :id="`R-${x.name}`" style="display:none;" />
           <canvas :id="`D-${x.name}`" style="display:none;" />
           <img :src="x['dataURL-D']" class="dif-img" />
         </div>
@@ -24,10 +32,12 @@
 import pixelmatch from 'pixelmatch'
 import { mapGetters } from 'vuex'
 import Shelf from '@/components/Shelf'
+import ScreenImg from '@/components/ScreenImg'
 
 export default {
   components: {
-    Shelf
+    Shelf,
+    ScreenImg
   },
   data() {
     return {}
@@ -102,6 +112,9 @@ export default {
 <style>
 .row {
   display: flex;
+}
+.scr-img {
+  width: 200px;
 }
 .dif-img {
   width: 200px;

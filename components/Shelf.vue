@@ -9,17 +9,6 @@
     >
       <p>ここに画像ファイルをドラッグ＆ドロップ</p>
     </div>
-    <div v-for="x of items" :key="x.name" class="row">
-      <div class="frame">
-        <canvas
-          :id="canvasId(x)"
-          width="100"
-          height="100"
-          style="display:none;"
-        />
-        <img :src="x.dataURL" />
-      </div>
-    </div>
   </div>
 </template>
 
@@ -30,9 +19,6 @@ export default {
     return { isDragging: false, items: [] }
   },
   methods: {
-    canvasId(x) {
-      return `${this.prefix}-${x.name}`
-    },
     changeStyle(bool) {
       this.isDragging = bool
     },
@@ -43,15 +29,18 @@ export default {
       for (const file of files) {
         const u = await this.readFileAsDataURL(file)
         this.items.push({ name: file.name, dataURL: u })
-        this.$nextTick(() => {
-          this.drawCanvas(this.canvasId(file), u)
-        })
       }
       if (this.prefix === 'L') {
         this.$store.dispatch('shelf/loadLeft', this.items)
       } else {
         this.$store.dispatch('shelf/loadRight', this.items)
       }
+      this.$nextTick(() => {
+        for (const item of this.items) {
+          const { name, dataURL } = item
+          this.drawCanvas(`${this.prefix}-${name}`, dataURL)
+        }
+      })
     },
     fetchFiles(event) {
       const files = event.target.files
