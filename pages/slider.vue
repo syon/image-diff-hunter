@@ -1,13 +1,14 @@
 <template>
   <div>
     <div>Slider / {{ name }}</div>
-    <div id="foo"></div>
+    <div class="frame">
+      <div id="slider"></div>
+    </div>
   </div>
 </template>
 
 <script>
 import 'juxtaposejs/build/js/juxtapose'
-import 'juxtaposejs/build/css/juxtapose.css'
 import { mapState } from 'vuex'
 
 export default {
@@ -27,19 +28,18 @@ export default {
   methods: {
     init() {
       const entry = this.entrySet[this.name]
-      // eslint-disable-next-line no-undef
+      if (!entry) return
+      // eslint-disable-next-line
       const slider = new juxtapose.JXSlider(
-        '#foo',
+        '#slider',
         [
           {
             src: entry['dataURL-L'],
-            label: '2009',
-            credit: 'Image Credit'
+            label: 'Before'
           },
           {
             src: entry['dataURL-R'],
-            label: '2014',
-            credit: 'Image Credit'
+            label: 'After'
           }
         ],
         {
@@ -50,8 +50,14 @@ export default {
           makeResponsive: true
         }
       )
-      console.log(slider)
     }
   }
 }
 </script>
+
+<style scoped>
+.frame {
+  width: 500px;
+  height: 500px;
+}
+</style>
