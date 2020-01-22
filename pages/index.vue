@@ -18,10 +18,12 @@
           <button @click="exeAllDiff">exeAllDiff</button>
         </div>
         <div v-for="x of allEntries" :key="x.name">
-          <canvas :id="`L-${x.name}`" style="display:none;" />
-          <canvas :id="`R-${x.name}`" style="display:none;" />
-          <canvas :id="`D-${x.name}`" style="display:none;" />
-          <img :src="x['dataURL-D']" class="dif-img" />
+          <NuxtLink :to="{ path: 'slider', query: { name: x.name } }">
+            <canvas :id="`L-${x.name}`" style="display:none;" />
+            <canvas :id="`R-${x.name}`" style="display:none;" />
+            <canvas :id="`D-${x.name}`" style="display:none;" />
+            <img :src="x['dataURL-D']" class="dif-img" />
+          </NuxtLink>
         </div>
       </div>
     </div>
