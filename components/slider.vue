@@ -11,8 +11,6 @@
 import 'juxtaposejs/build/js/juxtapose'
 import { mapState } from 'vuex'
 
-let slider = null
-
 export default {
   computed: {
     ...mapState('shelf', {
@@ -39,7 +37,7 @@ export default {
       }
       document.getElementById('slider').innerHTML = null
       // eslint-disable-next-line
-      slider = new juxtapose.JXSlider(
+      new juxtapose.JXSlider(
         '#slider',
         [
           {
