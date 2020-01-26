@@ -28,9 +28,15 @@ export const mutations = {
     }
   },
   setDiffOne(state, diffEntry) {
-    const { name, dataURL } = diffEntry
+    const { name, width, height, dataURL, mismatchedPixels } = diffEntry
     const e = state.entrySet[name]
-    Vue.set(state.entrySet, name, { ...e, 'dataURL-D': dataURL })
+    Vue.set(state.entrySet, name, {
+      ...e,
+      width,
+      height,
+      'dataURL-D': dataURL,
+      mismatchedPixels
+    })
   }
 }
 

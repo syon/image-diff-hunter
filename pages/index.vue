@@ -11,7 +11,7 @@
       exeAllDiff
     </button>
     <div>
-      <div v-for="x of allEntries" :key="x.name">
+      <div v-for="x of allEntries" :key="x.name" class="bg-white shadow mb-4">
         <NuxtLink :to="{ path: 'slider', query: { name: x.name } }" class="row">
           <div class="col">
             <screen-img
@@ -33,6 +33,17 @@
           <canvas :id="`R-${x.name}`" style="display:none;" />
           <canvas :id="`D-${x.name}`" style="display:none;" />
           <img :src="x['dataURL-D']" class="dif-img" />
+          <div class="flex flex-col">
+            <span>{{ x.name }}</span>
+            <span>{{ x.width }} x {{ x.height }}</span>
+            <span>{{ x.mismatchedPixels }}</span>
+            <span
+              >{{
+                ((x.mismatchedPixels / (x.width * x.height)) * 100).toFixed(2)
+              }}
+              %</span
+            >
+          </div>
         </NuxtLink>
       </div>
     </div>
@@ -61,8 +72,14 @@ export default {
   methods: {
     exeAllDiff() {
       this.allEntries.forEach(({ name }) => {
-        const url = this.doDiff(name)
-        this.$store.dispatch('shelf/loadDiff', { name, dataURL: url })
+        const { width, height, dataURL, mismatchedPixels } = this.doDiff(name)
+        this.$store.dispatch('shelf/loadDiff', {
+          name,
+          width,
+          height,
+          dataURL,
+          mismatchedPixels
+        })
       })
     },
     doDiff(filename) {
@@ -92,9 +109,16 @@ export default {
       difCanvas.width = width
       difCanvas.height = height
 
-      pixelmatch(img1.data, img2.data, diff.data, width, height, {
-        threshold: 0.1
-      })
+      const mismatchedPixels = pixelmatch(
+        img1.data,
+        img2.data,
+        diff.data,
+        width,
+        height,
+        {
+          threshold: 0.1
+        }
+      )
 
       this.getImageContext(`D-${filename}`).putImageData(
         diff,
@@ -107,7 +131,7 @@ export default {
       )
 
       const u = difCanvas.toDataURL('image/png')
-      return u
+      return { width, height, dataURL: u, mismatchedPixels }
     },
     getImageContext(id) {
       const canvas = document.getElementById(id)
@@ -128,9 +152,9 @@ export default {
   display: flex;
 }
 .scr-img {
-  width: 200px;
+  width: 120px;
 }
 .dif-img {
-  width: 200px;
+  width: 120px;
 }
 </style>
