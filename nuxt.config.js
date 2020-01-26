@@ -23,7 +23,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['juxtaposejs/build/css/juxtapose.css'],
+  css: ['@/node_modules/juxtaposejs/build/css/juxtapose.css'],
   /*
    ** Plugins to load before mounting the App
    */
