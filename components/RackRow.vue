@@ -2,8 +2,11 @@
   <div class="flex flex-col mb-4">
     <div class="flex">
       <span>{{ x.name }}</span>
+      ／
       <span>{{ x.width }} x {{ x.height }}</span>
+      ／
       <span>{{ x.mismatchedPixels }}</span>
+      ／
       <span
         >{{
           ((x.mismatchedPixels / (x.width * x.height)) * 100).toFixed(2)
@@ -11,7 +14,7 @@
         %</span
       >
     </div>
-    <div class="flex bg-white shadow">
+    <div @click="handleClick" class="flex bg-white shadow">
       <div class="col">
         <screen-img :name="x.name" :key="x.name" prefix="L" class="scr-img" />
       </div>
@@ -34,14 +37,15 @@ export default {
     ScreenImg
   },
   props: { item: { type: Object, required: true } },
-  data() {
-    return { isDragging: false, items: [] }
-  },
   computed: {
     x() {
       return this.item
     }
   },
-  methods: {}
+  methods: {
+    handleClick() {
+      this.$store.dispatch('ing/update', this.item.name)
+    }
+  }
 }
 </script>

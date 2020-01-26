@@ -1,20 +1,25 @@
 <template>
   <div class="container">
-    <shelf prefix="L" />
-    <shelf prefix="R" />
-    <button
-      @click="exeAllDiff"
-      class="bg-pink-500 text-white active:bg-pink-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1"
-      type="button"
-      style="transition: all .15s ease"
-    >
-      exeAllDiff
-    </button>
-    <div>
-      <div v-for="x of allEntries" :key="x.name">
-        <NuxtLink :to="{ path: 'slider', query: { name: x.name } }">
-          <rack-row :item="x" />
-        </NuxtLink>
+    <div class="flex">
+      <div>
+        <shelf prefix="L" />
+        <shelf prefix="R" />
+        <button
+          @click="exeAllDiff"
+          class="bg-pink-500 text-white active:bg-pink-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1"
+          type="button"
+          style="transition: all .15s ease"
+        >
+          exeAllDiff
+        </button>
+        <div>
+          <div v-for="x of allEntries" :key="x.name">
+            <rack-row :item="x" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <right-pane />
       </div>
     </div>
   </div>
@@ -25,11 +30,13 @@ import pixelmatch from 'pixelmatch'
 import { mapGetters } from 'vuex'
 import Shelf from '@/components/Shelf'
 import RackRow from '@/components/RackRow'
+import RightPane from '@/components/RightPane'
 
 export default {
   components: {
     Shelf,
-    RackRow
+    RackRow,
+    RightPane
   },
   data() {
     return {}

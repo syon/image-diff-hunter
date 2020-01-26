@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>Slider / {{ name }}</div>
+    <div>Slider / {{ filename }}</div>
     <div class="frame">
       <div id="slider"></div>
     </div>
@@ -11,15 +11,20 @@
 import 'juxtaposejs/build/js/juxtapose'
 import { mapState } from 'vuex'
 
+let slider = null
+
 export default {
   computed: {
     ...mapState('shelf', {
       entrySet: (state) => state.entrySet
+    }),
+    ...mapState('ing', {
+      filename: (state) => state.filename
     })
   },
-  asyncData({ query }) {
-    return {
-      name: query.name
+  watch: {
+    filename(newValue) {
+      this.init()
     }
   },
   mounted() {
@@ -27,10 +32,14 @@ export default {
   },
   methods: {
     init() {
-      const entry = this.entrySet[this.name]
-      if (!entry) return
+      const entry = this.entrySet[this.filename]
+      if (!entry) {
+        console.log("Couldn't draw a slider.")
+        return
+      }
+      document.getElementById('slider').innerHTML = null
       // eslint-disable-next-line
-      const slider = new juxtapose.JXSlider(
+      slider = new juxtapose.JXSlider(
         '#slider',
         [
           {
@@ -50,6 +59,7 @@ export default {
           makeResponsive: true
         }
       )
+      console.log('Slider★', slider)
     }
   }
 }
