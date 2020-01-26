@@ -1,30 +1,39 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <shelf prefix="L" />
-        <template v-for="x of allEntries">
-          <screen-img :name="x.name" :key="x.name" prefix="L" class="scr-img" />
-        </template>
-      </div>
-      <div class="col">
-        <shelf prefix="R" />
-        <template v-for="x of allEntries">
-          <screen-img :name="x.name" :key="x.name" prefix="R" class="scr-img" />
-        </template>
-      </div>
-      <div class="col">
-        <div style="height:100px;">
-          <button @click="exeAllDiff">exeAllDiff</button>
-        </div>
-        <div v-for="x of allEntries" :key="x.name">
-          <NuxtLink :to="{ path: 'slider', query: { name: x.name } }">
-            <canvas :id="`L-${x.name}`" style="display:none;" />
-            <canvas :id="`R-${x.name}`" style="display:none;" />
-            <canvas :id="`D-${x.name}`" style="display:none;" />
-            <img :src="x['dataURL-D']" class="dif-img" />
-          </NuxtLink>
-        </div>
+    <shelf prefix="L" />
+    <shelf prefix="R" />
+    <button
+      @click="exeAllDiff"
+      class="bg-pink-500 text-white active:bg-pink-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1"
+      type="button"
+      style="transition: all .15s ease"
+    >
+      exeAllDiff
+    </button>
+    <div>
+      <div v-for="x of allEntries" :key="x.name">
+        <NuxtLink :to="{ path: 'slider', query: { name: x.name } }" class="row">
+          <div class="col">
+            <screen-img
+              :name="x.name"
+              :key="x.name"
+              prefix="L"
+              class="scr-img"
+            />
+          </div>
+          <div class="col">
+            <screen-img
+              :name="x.name"
+              :key="x.name"
+              prefix="R"
+              class="scr-img"
+            />
+          </div>
+          <canvas :id="`L-${x.name}`" style="display:none;" />
+          <canvas :id="`R-${x.name}`" style="display:none;" />
+          <canvas :id="`D-${x.name}`" style="display:none;" />
+          <img :src="x['dataURL-D']" class="dif-img" />
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -112,6 +121,9 @@ export default {
 </script>
 
 <style>
+.container {
+  margin: auto;
+}
 .row {
   display: flex;
 }

@@ -5,7 +5,7 @@
       @dragleave.prevent="changeStyle(false)"
       @drop.prevent="onDrop"
       :class="{ dragging: isDragging }"
-      class="dropper"
+      class="dropper shadow"
     >
       <p>ここに画像ファイルをドラッグ＆ドロップ</p>
     </div>
