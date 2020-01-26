@@ -11,39 +11,9 @@
       exeAllDiff
     </button>
     <div>
-      <div v-for="x of allEntries" :key="x.name" class="bg-white shadow mb-4">
-        <NuxtLink :to="{ path: 'slider', query: { name: x.name } }" class="row">
-          <div class="col">
-            <screen-img
-              :name="x.name"
-              :key="x.name"
-              prefix="L"
-              class="scr-img"
-            />
-          </div>
-          <div class="col">
-            <screen-img
-              :name="x.name"
-              :key="x.name"
-              prefix="R"
-              class="scr-img"
-            />
-          </div>
-          <canvas :id="`L-${x.name}`" style="display:none;" />
-          <canvas :id="`R-${x.name}`" style="display:none;" />
-          <canvas :id="`D-${x.name}`" style="display:none;" />
-          <img :src="x['dataURL-D']" class="dif-img" />
-          <div class="flex flex-col">
-            <span>{{ x.name }}</span>
-            <span>{{ x.width }} x {{ x.height }}</span>
-            <span>{{ x.mismatchedPixels }}</span>
-            <span
-              >{{
-                ((x.mismatchedPixels / (x.width * x.height)) * 100).toFixed(2)
-              }}
-              %</span
-            >
-          </div>
+      <div v-for="x of allEntries" :key="x.name">
+        <NuxtLink :to="{ path: 'slider', query: { name: x.name } }">
+          <rack-row :item="x" />
         </NuxtLink>
       </div>
     </div>
@@ -54,12 +24,12 @@
 import pixelmatch from 'pixelmatch'
 import { mapGetters } from 'vuex'
 import Shelf from '@/components/Shelf'
-import ScreenImg from '@/components/ScreenImg'
+import RackRow from '@/components/RackRow'
 
 export default {
   components: {
     Shelf,
-    ScreenImg
+    RackRow
   },
   data() {
     return {}
@@ -147,9 +117,6 @@ export default {
 <style>
 .container {
   margin: auto;
-}
-.row {
-  display: flex;
 }
 .scr-img {
   width: 120px;
