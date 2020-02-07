@@ -5,10 +5,10 @@
         <shelf prefix="L" />
         <shelf prefix="R" />
         <button
-          @click="exeAllDiff"
           class="bg-pink-500 text-white active:bg-pink-600 font-bold text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1"
           type="button"
           style="transition: all .15s ease"
+          @click="exeAllDiff"
         >
           exeAllDiff
         </button>

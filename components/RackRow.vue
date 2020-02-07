@@ -14,12 +14,12 @@
         %</span
       >
     </div>
-    <div @click="handleClick" class="flex bg-white shadow">
+    <div class="flex bg-white shadow" @click="handleClick">
       <div class="col">
-        <screen-img :name="x.name" :key="x.name" prefix="L" class="scr-img" />
+        <screen-img :key="x.name" :name="x.name" prefix="L" class="scr-img" />
       </div>
       <div class="col">
-        <screen-img :name="x.name" :key="x.name" prefix="R" class="scr-img" />
+        <screen-img :key="x.name" :name="x.name" prefix="R" class="scr-img" />
       </div>
       <canvas :id="`L-${x.name}`" style="display:none;" />
       <canvas :id="`R-${x.name}`" style="display:none;" />
