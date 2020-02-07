@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="flex">
-      <div>
+      <div class="sidebar">
         <shelf prefix="L" />
         <shelf prefix="R" />
         <button

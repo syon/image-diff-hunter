@@ -1,9 +1,11 @@
 <template>
   <div>
     <vue-slider v-model="volume" tooltip="none" />
-    <div v-if="x" class="xx-holder">
-      <img :src="x['dataURL-L']" class="fadeimage xx-L" />
-      <img :src="x['dataURL-R']" class="fadeimage xx-R" :style="styleR" />
+    <div class="xx-holder neumo">
+      <div v-if="x" class="xx-holder">
+        <img :src="x['dataURL-L']" class="fadeimage xx-L" />
+        <img :src="x['dataURL-R']" class="fadeimage xx-R" :style="styleR" />
+      </div>
     </div>
   </div>
 </template>
@@ -32,11 +34,6 @@ export default {
     x() {
       return this.entrySet[this.filename]
     },
-    // styleL() {
-    //   return {
-    //     opacity: this.volume / 100
-    //   }
-    // },
     styleR() {
       return {
         opacity: this.volume / 100
@@ -49,16 +46,19 @@ export default {
 <style scoped>
 .xx-holder {
   position: relative;
+  height: 500px;
 }
 .fadeimage {
   position: absolute;
   width: 500px;
-  height: 500px;
 }
 .xx-L {
   z-index: 0;
 }
 .xx-R {
   z-index: 1;
+}
+.neumo {
+  padding: 15px;
 }
 </style>

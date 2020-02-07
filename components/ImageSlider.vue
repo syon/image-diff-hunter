@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>Slider / {{ filename }}</div>
-    <div class="frame">
+    <div class="frame neumo">
       <div id="slider"></div>
     </div>
   </div>
