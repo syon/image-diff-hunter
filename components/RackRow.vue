@@ -49,3 +49,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.scr-img {
+  width: 120px;
+}
+.dif-img {
+  width: 120px;
+}
+</style>

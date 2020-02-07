@@ -121,14 +121,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   margin: auto;
-}
-.scr-img {
-  width: 120px;
-}
-.dif-img {
-  width: 120px;
 }
 </style>
