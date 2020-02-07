@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col mb-4 ml-8">
-    <slider />
+    <image-slider />
   </div>
 </template>
 
 <script>
-import Slider from '@/components/Slider'
+import ImageSlider from '@/components/ImageSlider'
 
 export default {
-  components: { Slider },
+  components: { ImageSlider },
   computed: {},
   methods: {}
 }
