@@ -1,4 +1,4 @@
-# dci
+# Image Diff Hunter
 
 > My terrific Nuxt.js project
 
