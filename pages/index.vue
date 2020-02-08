@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="rightpane">
         <right-pane />
       </div>
     </div>
@@ -124,5 +124,8 @@ export default {
 <style scoped>
 .container {
   margin: auto;
+}
+.rightpane {
+  flex: 1;
 }
 </style>
