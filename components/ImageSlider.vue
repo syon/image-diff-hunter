@@ -1,5 +1,5 @@
 <template>
-  <div class="neumo">
+  <div>
     <div>Slider / {{ filename }}</div>
     <div class="frame">
       <div id="slider"></div>
@@ -66,8 +66,5 @@ export default {
 .frame {
   width: 500px;
   height: 500px;
-}
-.neumo {
-  padding: 15px;
 }
 </style>

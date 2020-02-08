@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-slider v-model="volume" tooltip="none" />
-    <div class="xx-holder neumo">
+    <div class="xx-holder">
       <div v-if="x" class="xx-holder">
         <img :src="x['dataURL-L']" class="fadeimage xx-L" />
         <img :src="x['dataURL-R']" class="fadeimage xx-R" :style="styleR" />
@@ -57,8 +57,5 @@ export default {
 }
 .xx-R {
   z-index: 1;
-}
-.neumo {
-  padding: 15px;
 }
 </style>
