@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <div>{{ filename }}</div>
-    <div class="flex">
-      <span>{{ x.width }} x {{ x.height }}</span>
-      ／
-      <span>{{ x.mismatchedPixels }}</span>
-      ／
+  <div class="IngInfo w-full my-4 text-gray-700">
+    <div class="text-center font-bold my-4">{{ filename }}</div>
+    <div class="text-center text-sm">
+      <span>width: {{ x.width }} &nbsp; height: {{ x.height }}</span>
+    </div>
+    <div class="text-center text-sm">
+      <span>MismatchedPixels: {{ x.mismatchedPixels }}</span>
+      (
       <span
         >{{
           ((x.mismatchedPixels / (x.width * x.height)) * 100).toFixed(2)
         }}
         %</span
       >
+      )
     </div>
   </div>
 </template>
@@ -28,10 +30,14 @@ export default {
       filename: (state) => state.filename
     }),
     x() {
-      return this.entrySet[this.filename]
+      return this.entrySet[this.filename] || {}
     }
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.IngInfo {
+  height: 120px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img v-if="x" :src="x['dataURL-D']" class="pixeldiffimage" />
+  <div class="pixeldiffimage flex justify-center">
+    <img v-if="x" :src="x['dataURL-D']" />
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style scoped>
-.pixeldiffimage {
+.pixeldiffimage img {
   max-width: 500px;
 }
 </style>

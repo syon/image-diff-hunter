@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div>Slider / {{ filename }}</div>
-    <div class="frame">
+    <div class="frame mx-auto">
       <div id="slider"></div>
     </div>
   </div>

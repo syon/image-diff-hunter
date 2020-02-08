@@ -4,7 +4,7 @@
     <div class="w-full">
       <div>
         <ul
-          class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row justify-center"
+          class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row justify-center text-gray-700"
         >
           <li class="-mb-px mr-6 last:mr-0 text-center cursor-pointer">
             <a
@@ -15,7 +15,7 @@
               class="text-xs font-bold uppercase px-5 py-3 block leading-normal"
               @click="toggleTabs(1)"
             >
-              <i class="fas fa-space-shuttle text-base mr-1"></i>Slider
+              Slider
             </a>
           </li>
           <li class="-mb-px mr-6 last:mr-0 text-center cursor-pointer">
@@ -27,7 +27,7 @@
               }"
               @click="toggleTabs(2)"
             >
-              <i class="fas fa-cog text-base mr-1"></i>Fade
+              Fade
             </a>
           </li>
           <li class="-mb-px mr-6 last:mr-0 text-center cursor-pointer">
@@ -39,7 +39,7 @@
               }"
               @click="toggleTabs(3)"
             >
-              <i class="fas fa-briefcase text-base mr-1"></i>Diff
+              Diff
             </a>
           </li>
         </ul>

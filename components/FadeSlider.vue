@@ -1,8 +1,10 @@
 <template>
   <div>
-    <vue-slider v-model="volume" tooltip="none" />
+    <div class="my-4 mx-auto" style="width:500px;">
+      <vue-slider v-model="volume" tooltip="none" />
+    </div>
     <div class="xx-holder">
-      <div v-if="x" class="xx-holder">
+      <div v-if="x" class="xx-holder flex justify-center">
         <img :src="x['dataURL-L']" class="fadeimage xx-L" />
         <img :src="x['dataURL-R']" class="fadeimage xx-R" :style="styleR" />
       </div>
